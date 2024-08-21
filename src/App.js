@@ -1,27 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {createRoot} from "react-dom/client";
+import {APIProvider} from '@vis.gl/react-google-maps';
 
+const App = () => (
+ <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} onLoad={() => console.log('Maps API has loaded.')}>
+   <h1>Hello, world!</h1>
+ </APIProvider>
+);
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      {/* <APIProvider apiKey={'AIzaSyAQxoMn0xo8rRpFCjegU-lfeiXZY97KO0U'} onLoad={() => console.log('Maps API has loaded.')}></APIProvider> */}
-    </div>
-  );
-}
+const root = createRoot(document.getElementById('app'));
+root.render(<App />);
 
 export default App;
