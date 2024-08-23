@@ -1,5 +1,18 @@
 import React from 'react';
 //schoolInfo Component Template
+/*
+  schoolName: {
+  centerName: {
+  centerInfo: {
+  centerHours: {
+  email: {
+  phone: {
+  appointmentRequired: {
+  appointmentLink: {
+  informationLink: {
+  additionalInfo: {
+  cunywide: {
+*/
 function SchoolInfo({
     className,
     schoolName,
@@ -7,10 +20,12 @@ function SchoolInfo({
     centerInfo,
     email,
     phone,
-    appointmentInfo,
-    link,
+    appointmentRequired,
+    appointmentLink,
+    informationLink,
     centerHours,
-    cunywide
+    cunywide,
+    additionalInfo
 }) {
     return (
         <div className={className}>
@@ -28,8 +43,9 @@ function SchoolInfo({
            <p className="hours-info">
                <strong>Hours: </strong>{centerHours}
            </p>
-           <p className="appointment-info" >{appointmentInfo}</p>    
-           <a href={link} target="_blank" rel="noreferrer" className="more-info-link">
+           
+           <p className="appointment-info" >{additionalInfo}</p>    
+           <a href={informationLink} target="_blank" rel="noreferrer" className="more-info-link">
                <p>Additional Information About Pantry</p>
            </a>
           
@@ -50,8 +66,12 @@ export const renderSchoolInfo = (sortedSchools, hoveredMarkerIndex, filters) => 
        email={data.email}
        phone={data.phone}
        centerHours={data.centerHours}
-       appointmentInfo={data.appointmentInfo}
-       link={data.link}/>));
+       appointmentRequired={data.appointmentRequired}
+       cunywide={data.cunywide}
+       additionalInfo={data.additionalInfo}
+       appointmentLink={data.appointmentLink}
+       informationLink={data.informationLink}
+       />));
 };
 
 export default SchoolInfo;
