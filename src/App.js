@@ -27,206 +27,196 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
     return d;
 }
 
-function NavBar({onFiltersChange}) {
-    const [checkedCunyWide,
-        setCheckedCunyWide] = React.useState(false);
-    const [checkedBorough,
-        setCheckedBorough] = React.useState(false);
-    const [checkedWalkIn,
-        setCheckedWalkIn] = React.useState(false);
-    const [filters,
-        setFilters] = React.useState({
-            CunyWide: checkedCunyWide,
-            Borough: checkedBorough,
-            WalkIn: checkedWalkIn,
-        });
-    onFiltersChange(filters)
-
+function NavBar({ onFiltersChange }) {
+    const [checkedCunyWide, setCheckedCunyWide] = React.useState(false);
+    const [checkedBorough, setCheckedBorough] = React.useState(false);
+    const [checkedWalkIn, setCheckedWalkIn] = React.useState(false);
+    const [filters, setFilters] = React.useState({
+      CunyWide: checkedCunyWide,
+      Borough: checkedBorough,
+      WalkIn: checkedWalkIn,
+    });
+  
+    const [isDropdownVisible, setDropdownVisible] = React.useState(false); // State for dropdown visibility
+  
+    const handleDropdownToggle = () => {
+      setDropdownVisible(!isDropdownVisible); // Toggle dropdown visibility
+    };
+  
+    onFiltersChange(filters);
+  
     const handleChangeCunyWide = () => {
-        setCheckedCunyWide(!checkedCunyWide);
-        setFilters({
-            CunyWide: !checkedCunyWide,
-            Borough: checkedBorough,
-            WalkIn: checkedWalkIn,
-        });
-       
+      setCheckedCunyWide(!checkedCunyWide);
+      setFilters({
+        CunyWide: !checkedCunyWide,
+        Borough: checkedBorough,
+        WalkIn: checkedWalkIn,
+      });
     };
+  
     const handleChangeBorough = () => {
-        setCheckedBorough(!checkedBorough);
-        setFilters({
-            CunyWide: checkedCunyWide,
-            Borough: !checkedBorough,
-            WalkIn: checkedWalkIn,
-        });
-       
+      setCheckedBorough(!checkedBorough);
+      setFilters({
+        CunyWide: checkedCunyWide,
+        Borough: !checkedBorough,
+        WalkIn: checkedWalkIn,
+      });
     };
+  
     const handleChangeWalkIn = () => {
-        setCheckedWalkIn(!checkedWalkIn);
-        setFilters({
-            CunyWide: checkedCunyWide,
-            Borough: checkedBorough,
-            WalkIn: !checkedWalkIn,
-        });
-        
+      setCheckedWalkIn(!checkedWalkIn);
+      setFilters({
+        CunyWide: checkedCunyWide,
+        Borough: checkedBorough,
+        WalkIn: !checkedWalkIn,
+      });
     };
-
-    const Checkbox = ({label, value, onChange}) => {
-        return (
-            <label>
-                <input type="checkbox" checked={value} onChange={onChange}/> {label}
-            </label>
-        );
+  
+    const Checkbox = ({ label, value, onChange }) => {
+      return (
+        <label>
+          <input type="checkbox" checked={value} onChange={onChange} /> {label}
+        </label>
+      );
     };
-
-    //   Cuny-wide , borough, walk in
+  
     return (
-        <nav className="navBar">
-            <div className="nav-text">CUNY Pantry Finder
-            </div>
-            <div className="navBar-link">
-                <a className="nav-icon" href="#Purpose">
-                    <img src={purposeIcon} alt="Purpose Icon" className="nav-icon"/>
-                    Purpose
-                </a>
-                <a className="nav-icon" href="#Filter">
-                    <img src={filterIcon} alt="Filter Icon" className="nav-icon"/>
-                    Filter
-                </a>
-                <div>
-                    <Checkbox label="Cuny-Wide" value={checkedCunyWide} onChange={handleChangeCunyWide}/>
-                    <Checkbox label="Borough" value={checkedBorough} onChange={handleChangeBorough}/>
-                    <Checkbox label="WalkIn" value={checkedWalkIn} onChange={handleChangeWalkIn}/>
-                </div>
-            </div>
-        </nav>
+      <nav className="navBar">
+        <div className="nav-text">CUNY Pantry Finder</div>
+        <div className="navBar-link">
+          <a className="nav-icon" href="#Purpose">
+            <img src={purposeIcon} alt="Purpose Icon" className="nav-icon" />
+            Purpose
+          </a>
+          <div className="filter-dropdown">
+            <button className="filter-button" onClick={handleDropdownToggle}>
+              <img src={filterIcon} alt="Filter Icon" className="nav-icon" />
+              Filter
+            </button>
+            {isDropdownVisible && (
+              <div className="dropdown-content">
+                <Checkbox label="Cuny-Wide" value={checkedCunyWide} onChange={handleChangeCunyWide} />
+                <Checkbox label="Borough" value={checkedBorough} onChange={handleChangeBorough} />
+                <Checkbox label="WalkIn" value={checkedWalkIn} onChange={handleChangeWalkIn} />
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
     );
-}
+  }  
 
-function MapComponent({onNearestSchoolsChange, onHoverMarkerChange, filters}) {
-    console.log(filters)
-    const [position,
-        setPosition] = useState(null); //store user's current location
-    const [open,
-        setOpen] = useState(false);
-    const [nearestSchools,
-        setNearestSchools] = useState([]);
-    const [hoveredMarkerIndex,
-        setHoveredMarkerIndex] = useState(null);
-
-    const setHoveredMarker = (index) => {
-        onHoverMarkerChange(index); // Call the prop function to update parent's state
+function MapComponent({ onNearestSchoolsChange, onHoverMarkerChange, filters }) {
+    console.log(filters);
+  
+    const [position, setPosition] = useState(null); // Store user's current location
+    const [open, setOpen] = useState(false);
+    const [nearestSchools, setNearestSchools] = useState([]);
+    const [hoveredMarkerName, setHoveredMarkerName] = useState(null);
+  
+    const setHoveredMarker = (name) => {
+      onHoverMarkerChange(name); // Call the prop function to update parent's state
     };
-    const [resultArray,
-        setResultArray] = useState([]);
+  
+    const [resultArray, setResultArray] = useState([]);
+  
     useEffect(() => {
-        const getInfo = async() => {
-            await axios
-                .get('https://cuny-pantry-finder-db-47ba1c85de33.herokuapp.com/school-info')
-                .then(response => setResultArray(response.data))
-        }
-        getInfo();
+      const getInfo = async () => {
+        await axios
+          .get('https://cuny-pantry-finder-db-47ba1c85de33.herokuapp.com/school-info')
+          .then((response) => setResultArray(response.data));
+      };
+      getInfo();
     }, []);
-
-    //function to get user's location
+  
+    // Function to get user's location
     useEffect(() => {
-        navigator
-            .geolocation
-            .getCurrentPosition((position) => {
-                const userPosition = {
-                    lat: position.coords.latitude, //coordinates
-                    lng: position.coords.longitude
-                };
-                setPosition(userPosition);
-
-                const sortedSchools = resultArray.map((school) => ({
-                    ...school,
-                    distance: calculateDistance(userPosition.lat, userPosition.lng, school.lat, school.lng)
-                })).sort((a, b) => a.distance - b.distance);
-
-                setNearestSchools(sortedSchools);
-                onNearestSchoolsChange(sortedSchools); //runs setNearestSchool state for App component
-            }, (error) => {
-                //error handling
-                console.error("Error retrieving location", error);
-            });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userPosition = {
+            lat: position.coords.latitude, // Coordinates
+            lng: position.coords.longitude,
+          };
+          setPosition(userPosition);
+  
+          const sortedSchools = resultArray.map((school) => ({
+            ...school,
+            distance: calculateDistance(
+              userPosition.lat,
+              userPosition.lng,
+              school.lat,
+              school.lng
+            ),
+          })).sort((a, b) => a.distance - b.distance);
+  
+          setNearestSchools(sortedSchools);
+          onNearestSchoolsChange(sortedSchools); // Runs setNearestSchool state for App component
+        },
+        (error) => {
+          // Error handling
+          console.error("Error retrieving location", error);
+        }
+      );
     }, [resultArray]);
-
-    const {isLoaded, loadError} = useLoadScript({googleMapsApiKey: GOOGLE_MAPS_API_KEY, libraries});
-
-    if (loadError) {
-        console.log("ERROR loading maps")
-        return <div>Error loading maps</div>;
-    }
-
-    if (!isLoaded) {
-        console.log("loading maps ...")
-        return <div>Loading maps ...</div>;
-    }
-
-    //show the map once the user's position has been retrieved and api loaded
+  
+    const { isLoaded, loadError } = useLoadScript({
+      googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+      libraries,
+    });
+  
+    if (loadError) return <div>Error loading maps</div>;
+  
+    if (!isLoaded) return <div>Loading maps ...</div>;
+  
+    // Show the map once the user's position has been retrieved and API loaded
     return (
-        <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
-            <div
-                style={{
-                height: "100vh",
-                width: "100%"
-            }}>
-                {position && (
-                    <Map defaultZoom={14} defaultCenter={position}>
-                        <Marker position={position} onClick={() => setOpen(true)}/> {open && (
-                            <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
-                                <div>
-                                    <p>You are here!</p>
-                                </div>
-                            </InfoWindow>
-                        )}
-
-                        {/* Display nearest CUNY schools */}
-                    
-
-                        {nearestSchools.map((school, index) =>(
-                         
-                         (console.log(filters.CunyWide),
-                            <Marker key={index} position={{
-                                lat: school.lat,
-                                lng: school.lng
-                            }} icon={{
-                                url: hoveredMarkerIndex === index
-                                    ? "food_hover.png"
-                                    : "food.png", // Change icon on hover 
-                                    scaledSize: new window.google.maps.Size(52, 52) }} 
-                                    onMouseOver={() => {
-                                setHoveredMarkerIndex(index);
-                                setHoveredMarker(index);
-                            }} // Set hovered marker index
-    onMouseOut={() => {
-                                setHoveredMarkerIndex(null);
-                                setHoveredMarker(null);
-                            }} // Reset hovered marker index
->
-                                <InfoWindow
-                                    position={{
-                                    lat: school.lat,
-                                    lng: school.lng
-                                }}>
-                                    <div>
-                                        <h3>{school.name}</h3>
-                                        <p>Distance: {school
-                                                .distance
-                                                .toFixed(2)}
-                                            km</p>
-                                    </div>
-                                </InfoWindow>
-                            </Marker>
-                         ): null
-                        ))}
-
-                    </Map>
-                )}
-            </div>
-        </APIProvider>
+      <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
+        <div style={{ height: "100vh", width: "100%" }}>
+          {position && (
+            <Map defaultZoom={14} defaultCenter={position}>
+              <Marker position={position} onClick={() => setOpen(true)} />
+              {open && (
+                <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
+                  <div>
+                    <p>You are here!</p>
+                  </div>
+                </InfoWindow>
+              )}
+  
+              {/* Display nearest CUNY schools */}
+              {nearestSchools.map((school, index) => (
+                <Marker
+                  key={index}
+                  position={{ lat: school.lat, lng: school.lng }}
+                  icon={{
+                    url: hoveredMarkerName === school.schoolName
+                      ? "food_hover.png"
+                      : "food.png", // Change icon on hover
+                    scaledSize: new window.google.maps.Size(52, 52),
+                  }}
+                  onMouseOver={() => {
+                    setHoveredMarkerName(school.schoolName);
+                    setHoveredMarker(school.schoolName);
+                  }}
+                  onMouseOut={() => {
+                    setHoveredMarkerName(null);
+                    setHoveredMarker(null);
+                  }}
+                >
+                  <InfoWindow position={{ lat: school.lat, lng: school.lng }}>
+                    <div>
+                      <h3>{school.name}</h3>
+                      <p>Distance: {school.distance.toFixed(2)} km</p>
+                    </div>
+                  </InfoWindow>
+                </Marker>
+              ))}
+            </Map>
+          )}
+        </div>
+      </APIProvider>
     );
-}
+  }
 
 // } Web App Components
 function App() {
