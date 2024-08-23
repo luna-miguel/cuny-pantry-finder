@@ -15,54 +15,75 @@ html {
     animation: App-logo-spin infinite 20s linear;
   }
  }
+ /* dim image in app-header*/
  .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-image: url("newBasket.jpg");
+  background-size: cover; /*default for entire container*/
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  color: white;
+  filter: brightness(82%);
  }
+ 
+ 
+ @media (min-width: 960px) {
+  .App-header, image-header {
+    background-size: cover;
+  }
+ }
+ 
+ 
+ .image-header {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+ }
+ 
+ 
  .App-link {
   color: 'black';
  }
  
  
- .InfoSections {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  margin: 20px auto;
-  max-width: 600px;
- }
- 
- 
  .navBar {
-  display: inline-flex;
-  background-color: rgb(229, 229, 229);
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display:flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
   border-radius: 10px;
-  justify-content: right;
-  position: relative;
+  justify-content: space-between;
+  position: absolute;
+  top: 20px;
+  padding: 15px;
+  z-index: 1;
+  color: white;
   width: 75%;
-  padding: 25px;
-  margin-top: 20px;
+  border-radius: 10px;
+  margin-top: -10px;
  }
  
  
- .navBar-links {
-  display: flex;
+ /*Title on the left side of the Nav Bar*/
+ .nav-text {
+  font-size: 24px;
+  font-weight: bold;
   color: white;
-  text-decoration: none;
-  font-size: 18px;
  }
  
  
  .navBar a {
-  color: black;
   font-weight: bold;
+  color: black;
   padding: 10px 20px;
   border-radius: 10px;
   background-color: white;
@@ -71,8 +92,51 @@ html {
  }
  
  
+ .nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+ }
+ 
+ 
+ /*Nav Bar links horiontally aligned even when screen resized*/
+ @media (max-width: 960px) {
+  .navBar {
+    width: 90%;
+    flex-wrap: nowrap;
+  }
+ 
+ 
+  .navBar-links {
+    gap: 10px;
+  }
+ 
+ 
+  .navBar a {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+ 
+ 
+  .nav-icon {
+    width: 16px;
+    height: 16px;
+  }
+ }
+ 
+ 
+ .navBar-links {
+  display: flex;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  gap: 15px;
+ }
+ 
+ 
  .navBar-link a:hover {
-  color: orange;
+  color: rgb(101, 109, 74);
  }
  
  
@@ -80,4 +144,118 @@ html {
   color: black;
  }
  
+ 
+ /* center text in middle of background image */
+ .middle-text{
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+  height: 140vh;
+  padding-left: 1.7cm;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+ 
+ 
+ }
+ 
+ 
+ /*blocks holding the school info to the right of the map*/
+ .InfoSection {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+ }
+ .InfoSection-hover {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  text-align: left;
+ }
+ 
+ 
+ .school-name {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+ }
+ 
+ 
+ .center-info {
+  margin-bottom: 16px;
+ }
+ 
+ 
+ .center-name {
+  font-size: 20px;
+  margin: 10px 0;
+  color: rgb(101, 109, 74);
+ }
+ 
+ 
+ .center-details {
+  font-size: 16px;
+  margin: 5px 0 15px;
+ }
+ 
+ 
+ .contact-info {
+  font-size: 16px;
+  margin: 5px 0;
+ }
+ 
+ 
+ .more-info-link {
+  display: inline-block;
+  font-size: 16px;
+  color: rgb(101, 109, 74);
+  text-decoration:none;
+ }
+ 
+ 
+ .more-info-link:hover {
+  text-decoration: underline;
+ }
+ 
+ 
+ /* Basic styling for the container and boxes */
+ .container {
+  display: flex;
+  flex-wrap: wrap; /* Allows the boxes to wrap */
+  justify-content: fill;
+ }
+ 
+ 
+ .school-info-section-box {
+  width: 100%;
+  max-width: 800px;
+ }
+ 
+ 
+ .box {
+  flex: 1; /* Each box takes up an equal amount of space */
+  background-color: lightblue;
+  text-align: center;
+ }
+ 
+ 
+ /* Media query for smaller screens */
+ @media (max-width: 788px) {
+  .container {
+      flex-direction: column; /* Stacks the boxes on top of each other */
+  }
+  .box {
+      flex: 100%; /* Each box takes full width */
+     
+  }
+  .box1 {
+    position: absolute;
+  }
+ }
  

@@ -1,15 +1,4 @@
-const { type } = require('@testing-library/user-event/dist/type');
 const mongoose = require('mongoose');
-
-/*
-schoolName:"TEST Hostos",
-centerName:"HCC Food Pantry",
-centerInfo:"One Stop Center, Savoy Building, Fl 1 D-101, Bronx, NY 10451",
-email:"mcruz@hostos.cuny.edu",
-phone:"718-518-4141",
-appointmentInfo:"Appointment only",
-link:"https://www.ccny.cuny.edu"
-*/
 
 const CampusSchema = new mongoose.Schema({
   schoolName: {
@@ -21,26 +10,49 @@ const CampusSchema = new mongoose.Schema({
       required: true
   },
   centerInfo: {
-    type: String,
+    type: Array, // array of strings
     required: true
+  },
+  centerHours: {
+    type:Array,
+    required:true
   },
   email: {
       type: String,
       required: true
   },
   phone: {
-    type: Number,
+    type: String,
     required: true
   },
   appointmentRequired: {
     type: Boolean,
-    required: true
+    required: true,
+    default: true
   },
-  link: {
+  appointmentLink: {
+    type:String,
+  },
+  informationLink: {
     type:String,
     required: true
-  }
-
+  },
+  lat: {
+    type:Number,
+    required: true
+  },
+  lng: {
+    type:Number,
+    required: true
+  },
+  additionalInfo: {
+    type:String,
+  },
+  cunywide: {
+    type:Boolean,
+    required: true,
+    default: true
+  },
   
 });
 
