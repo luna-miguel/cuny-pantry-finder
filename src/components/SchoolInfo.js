@@ -40,9 +40,9 @@ function SchoolInfo({
 //creating all schoolInfo component from data
 {/* TODO: Filter  */}
 {/* TODO: Change highlighting to schoolName not index  */}
-export const renderSchoolInfo = (sortedSchools, hoveredMarkerIndex, filters) => {
+export const renderSchoolInfo = (sortedSchools, hoveredMarkerName, filters) => {
     return sortedSchools.map((data, index) => (<SchoolInfo
-        className = {hoveredMarkerIndex == index ? "InfoSection-hover" : "InfoSection"}
+        className = {hoveredMarkerName == data.schoolName ? "InfoSection-hover" : "InfoSection"}
         key={index}
        schoolName={data.schoolName}
        centerName={data.centerName}

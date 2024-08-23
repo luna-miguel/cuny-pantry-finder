@@ -165,7 +165,7 @@ html {
   padding: 20px;
   border-radius: 10px;
   margin: 20px auto;
-  max-width: 600px;
+  max-width: 50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
  }
@@ -178,7 +178,9 @@ html {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   text-align: left;
  }
- 
+ .purpose{
+  max-width: 600px;
+ }
  
  .school-name {
   font-size: 30px;

@@ -8,7 +8,7 @@ import {renderSchoolInfo} from "./components/SchoolInfo";
 import {useLoadScript} from "@react-google-maps/api";
 import purposeIcon from "./assets/purpose.webp";
 import filterIcon from "./assets/filter.png";
-
+import Purpose from "./components/Purpose.js"
 const libraries = ["places"];
 
 //location of API Key
@@ -27,7 +27,7 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
     return d;
 }
 
-function NavBar({onFiltersChange}) {
+function NavBar({onFiltersChange, onPurposeChange}) {
     const [checkedCunyWide,
         setCheckedCunyWide] = React.useState(false);
     const [checkedBorough,
@@ -35,11 +35,7 @@ function NavBar({onFiltersChange}) {
     const [checkedWalkIn,
         setCheckedWalkIn] = React.useState(false);
     const [filters,
-        setFilters] = React.useState({
-            CunyWide: checkedCunyWide,
-            Borough: checkedBorough,
-            WalkIn: checkedWalkIn,
-        });
+        setFilters] = React.useState({CunyWide: checkedCunyWide, Borough: checkedBorough, WalkIn: checkedWalkIn});
     onFiltersChange(filters)
 
     const handleChangeCunyWide = () => {
@@ -47,27 +43,27 @@ function NavBar({onFiltersChange}) {
         setFilters({
             CunyWide: !checkedCunyWide,
             Borough: checkedBorough,
-            WalkIn: checkedWalkIn,
+            WalkIn: checkedWalkIn
         });
-       
+
     };
     const handleChangeBorough = () => {
         setCheckedBorough(!checkedBorough);
         setFilters({
             CunyWide: checkedCunyWide,
             Borough: !checkedBorough,
-            WalkIn: checkedWalkIn,
+            WalkIn: checkedWalkIn
         });
-       
+
     };
     const handleChangeWalkIn = () => {
         setCheckedWalkIn(!checkedWalkIn);
         setFilters({
             CunyWide: checkedCunyWide,
             Borough: checkedBorough,
-            WalkIn: !checkedWalkIn,
+            WalkIn: !checkedWalkIn
         });
-        
+
     };
 
     const Checkbox = ({label, value, onChange}) => {
@@ -81,10 +77,10 @@ function NavBar({onFiltersChange}) {
     //   Cuny-wide , borough, walk in
     return (
         <nav className="navBar">
-            <div className="nav-text">CUNY Pantry Finder
+            <div className="nav-text" onClick={() => onPurposeChange(false)}>CUNY Pantry Finder
             </div>
             <div className="navBar-link">
-                <a className="nav-icon" href="#Purpose">
+                <a className="nav-icon" onClick={() => onPurposeChange(true)}>
                     <img src={purposeIcon} alt="Purpose Icon" className="nav-icon"/>
                     Purpose
                 </a>
@@ -93,8 +89,14 @@ function NavBar({onFiltersChange}) {
                     Filter
                 </a>
                 <div>
-                    <Checkbox label="Cuny-Wide" value={checkedCunyWide} onChange={handleChangeCunyWide}/>
-                    <Checkbox label="Borough" value={checkedBorough} onChange={handleChangeBorough}/>
+                    <Checkbox
+                        label="Cuny-Wide"
+                        value={checkedCunyWide}
+                        onChange={handleChangeCunyWide}/>
+                    <Checkbox
+                        label="Borough"
+                        value={checkedBorough}
+                        onChange={handleChangeBorough}/>
                     <Checkbox label="WalkIn" value={checkedWalkIn} onChange={handleChangeWalkIn}/>
                 </div>
             </div>
@@ -103,37 +105,40 @@ function NavBar({onFiltersChange}) {
 }
 
 function MapComponent({onNearestSchoolsChange, onHoverMarkerChange, filters}) {
-    console.log(filters)
+    console.log(filters);
+
     const [position,
-        setPosition] = useState(null); //store user's current location
+        setPosition] = useState(null); // Store user's current location
     const [open,
         setOpen] = useState(false);
     const [nearestSchools,
         setNearestSchools] = useState([]);
-    const [hoveredMarkerIndex,
-        setHoveredMarkerIndex] = useState(null);
+    const [hoveredMarkerName,
+        setHoveredMarkerName] = useState(null);
 
-    const setHoveredMarker = (index) => {
-        onHoverMarkerChange(index); // Call the prop function to update parent's state
+    const setHoveredMarker = (name) => {
+        onHoverMarkerChange(name); // Call the prop function to update parent's state
     };
+
     const [resultArray,
         setResultArray] = useState([]);
+
     useEffect(() => {
         const getInfo = async() => {
             await axios
                 .get('https://cuny-pantry-finder-db-47ba1c85de33.herokuapp.com/school-info')
-                .then(response => setResultArray(response.data))
-        }
+                .then((response) => setResultArray(response.data));
+        };
         getInfo();
     }, []);
 
-    //function to get user's location
+    // Function to get user's location
     useEffect(() => {
         navigator
             .geolocation
             .getCurrentPosition((position) => {
                 const userPosition = {
-                    lat: position.coords.latitude, //coordinates
+                    lat: position.coords.latitude, // Coordinates
                     lng: position.coords.longitude
                 };
                 setPosition(userPosition);
@@ -144,26 +149,22 @@ function MapComponent({onNearestSchoolsChange, onHoverMarkerChange, filters}) {
                 })).sort((a, b) => a.distance - b.distance);
 
                 setNearestSchools(sortedSchools);
-                onNearestSchoolsChange(sortedSchools); //runs setNearestSchool state for App component
+                onNearestSchoolsChange(sortedSchools); // Runs setNearestSchool state for App component
             }, (error) => {
-                //error handling
+                // Error handling
                 console.error("Error retrieving location", error);
             });
     }, [resultArray]);
 
     const {isLoaded, loadError} = useLoadScript({googleMapsApiKey: GOOGLE_MAPS_API_KEY, libraries});
 
-    if (loadError) {
-        console.log("ERROR loading maps")
+    if (loadError) 
         return <div>Error loading maps</div>;
-    }
-
-    if (!isLoaded) {
-        console.log("loading maps ...")
+    
+    if (!isLoaded) 
         return <div>Loading maps ...</div>;
-    }
-
-    //show the map once the user's position has been retrieved and api loaded
+    
+    // Show the map once the user's position has been retrieved and API loaded
     return (
         <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
             <div
@@ -182,28 +183,26 @@ function MapComponent({onNearestSchoolsChange, onHoverMarkerChange, filters}) {
                         )}
 
                         {/* Display nearest CUNY schools */}
-                    
-
-                        {nearestSchools.map((school, index) =>(
-                         
-                         (console.log(filters.CunyWide),
-                            <Marker key={index} position={{
+                        {nearestSchools.map((school, index) => (
+                            <Marker
+                                key={index}
+                                position={{
                                 lat: school.lat,
                                 lng: school.lng
-                            }} icon={{
-                                url: hoveredMarkerIndex === index
+                            }}// Change icon on hover 
+                                icon={{
+                                url: hoveredMarkerName === school.schoolName
                                     ? "food_hover.png"
-                                    : "food.png", // Change icon on hover 
-                                    scaledSize: new window.google.maps.Size(52, 52) }} 
-                                    onMouseOver={() => {
-                                setHoveredMarkerIndex(index);
-                                setHoveredMarker(index);
-                            }} // Set hovered marker index
-    onMouseOut={() => {
-                                setHoveredMarkerIndex(null);
+                                    : "food.png", 
+                                    scaledSize: new window.google.maps.Size(52, 52), }}
+                                onMouseOver={() => {
+                                setHoveredMarkerName(school.schoolName);
+                                setHoveredMarker(school.schoolName);
+                            }}
+                                onMouseOut={() => {
+                                setHoveredMarkerName(null);
                                 setHoveredMarker(null);
-                            }} // Reset hovered marker index
->
+                            }}>
                                 <InfoWindow
                                     position={{
                                     lat: school.lat,
@@ -218,9 +217,7 @@ function MapComponent({onNearestSchoolsChange, onHoverMarkerChange, filters}) {
                                     </div>
                                 </InfoWindow>
                             </Marker>
-                         ): null
                         ))}
-
                     </Map>
                 )}
             </div>
@@ -230,47 +227,59 @@ function MapComponent({onNearestSchoolsChange, onHoverMarkerChange, filters}) {
 
 // } Web App Components
 function App() {
-    const [nearestSchools,
-        setNearestSchools] = useState([]);
-    const [hoveredMarkerIndex,
-        setHoveredMarkerIndex] = useState(null);
-    const [resultsPageNum,
-        setresultsPageNum] = useState(0)
-    const [filters,
-        setFilters] = useState({})
+    const [nearestSchools, setNearestSchools] = useState([]);
+    const [hoveredMarkerName, setHoveredMarkerName] = useState(null);
+    const [resultsPageNum, setresultsPageNum] = useState(0);
+    const [filters, setFilters] = useState({});
+    const [purpose, setPurpose] = useState(false);
+    
     const resultsPerPage = 2;
-    const maxPages = Math.ceil(nearestSchools.length / resultsPerPage); //calculates how many pages of results can be displayed based on resultsPerPage
+    const maxPages = Math.ceil(nearestSchools.length / resultsPerPage); // Calculates how many pages of results can be displayed based on resultsPerPage
 
     return (
         <div className="App">
             <header className="App-header">
                 <div className="image-header"></div>
-                <NavBar onFiltersChange={setFilters}/>
+                <NavBar onFiltersChange={setFilters} onPurposeChange={setPurpose}/>
                 <h1 className="middle-text">Find your nearest CUNY Food Pantry</h1>
             </header>
-
+            {!purpose ? (
             <div className="container">
-
+             
                 <MapComponent
-                    onNearestSchoolsChange={setNearestSchools}
-                    onHoverMarkerChange={setHoveredMarkerIndex}
-                    filters={filters}/>
-
-                <div className="School-info-section box">
-                    {/* TODO: Filter  */}
-                    <div className="pageArrows">
-                        <button onClick={() => setresultsPageNum(Math.max(resultsPageNum - 1, 0))}>
-                            <div>&lt;</div>
-                        </button>
-                        {resultsPageNum}
-                        <button
-                            onClick={() => setresultsPageNum(Math.min(resultsPageNum + 1, maxPages - 1))}>
-                            <div>&gt;</div>
-                        </button>
-                    </div>
-                    {renderSchoolInfo(nearestSchools.slice(resultsPageNum * resultsPerPage, resultsPageNum * resultsPerPage + resultsPerPage), hoveredMarkerIndex, filters)}
+                onNearestSchoolsChange={setNearestSchools}
+                onHoverMarkerChange={setHoveredMarkerName}
+                filters={filters}
+            />
+            <div className="School-info-section box">     
+            <div>
+                <div className="pageArrows">
+                    <button onClick={() => setresultsPageNum(Math.max(resultsPageNum - 1, 0))}>
+                        <div>&lt;</div>
+                    </button>
+                    {resultsPageNum}
+                    <button onClick={() => setresultsPageNum(Math.min(resultsPageNum + 1, maxPages - 1))}>
+                        <div>&gt;</div>
+                    </button>
                 </div>
+
+                {renderSchoolInfo(
+                    nearestSchools.slice(
+                        resultsPageNum * resultsPerPage,
+                        resultsPageNum * resultsPerPage + resultsPerPage
+                    ),
+                    hoveredMarkerName,
+                    filters
+                )}
             </div>
+    </div>
+             
+                
+
+                
+                
+            </div>
+            ) : <Purpose /> }
         </div>
     );
 }
