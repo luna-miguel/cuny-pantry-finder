@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/cuny-pantry-finder/static/css/main.975999be.css",
+    "main.js": "/cuny-pantry-finder/static/js/main.2f1dc4c8.js",
+    "static/js/453.ed3810f9.chunk.js": "/cuny-pantry-finder/static/js/453.ed3810f9.chunk.js",
+    "static/media/newBasket.jpg": "/cuny-pantry-finder/static/media/newBasket.26e0b32aa53ae3be6939.jpg",
+    "static/media/purpose.webp": "/cuny-pantry-finder/static/media/purpose.2ba382f9622c729a31a2.webp",
+    "index.html": "/cuny-pantry-finder/index.html",
+    "main.975999be.css.map": "/cuny-pantry-finder/static/css/main.975999be.css.map",
+    "main.2f1dc4c8.js.map": "/cuny-pantry-finder/static/js/main.2f1dc4c8.js.map",
+    "453.ed3810f9.chunk.js.map": "/cuny-pantry-finder/static/js/453.ed3810f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.975999be.css",
+    "static/js/main.2f1dc4c8.js"
+  ]
+}
