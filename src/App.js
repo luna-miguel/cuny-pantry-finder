@@ -95,9 +95,13 @@ function NavBar({ onFiltersChange }) {
             </button>
             {isDropdownVisible && (
               <div className="dropdown-content">
-                <Checkbox label="Cuny-Wide" value={checkedCunyWide} onChange={handleChangeCunyWide} />
-                <Checkbox label="Borough" value={checkedBorough} onChange={handleChangeBorough} />
-                <Checkbox label="Walk-In" value={checkedWalkIn} onChange={handleChangeWalkIn} />
+                <Checkbox label="Walk-In" value={checkedCunyWide} onChange={handleChangeCunyWide} />
+                <Checkbox label="Cuny-Wide" value={checkedBorough} onChange={handleChangeBorough} />
+                <Checkbox label="Manhattan" value={checkedWalkIn} onChange={handleChangeWalkIn} />
+                <Checkbox label="Bronx" value={checkedWalkIn} onChange={handleChangeWalkIn} />
+                <Checkbox label="Brooklyn" value={checkedWalkIn} onChange={handleChangeWalkIn} />
+                <Checkbox label="Queens" value={checkedWalkIn} onChange={handleChangeWalkIn} />
+                <Checkbox label="Staten Island" value={checkedWalkIn} onChange={handleChangeWalkIn} />
               </div>
             )}
           </div>
