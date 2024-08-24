@@ -244,6 +244,7 @@ html {
   flex: 1; /* Each box takes up an equal amount of space */
   background-color: lightblue;
   text-align: center;
+  height:100%;
  }
  
  
@@ -261,3 +262,7 @@ html {
   }
  }
  
+ .sources {
+  text-align: center;
+ list-style-position: inside;
+ }

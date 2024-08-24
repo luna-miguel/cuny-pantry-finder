@@ -10,7 +10,8 @@ function SchoolInfo({
     appointmentInfo,
     link,
     centerHours,
-    cunywide
+    cunywide,
+    appointmentRequired
 }) {
     return (
         <div className={className}>
@@ -41,7 +42,11 @@ function SchoolInfo({
 {/* TODO: Filter  */}
 {/* TODO: Change highlighting to schoolName not index  */}
 export const renderSchoolInfo = (sortedSchools, hoveredMarkerName, filters) => {
-    return sortedSchools.map((data, index) => (<SchoolInfo
+    return sortedSchools.filter((school) => {
+        if (filters.WalkIn && school.appointmentRequired) return false;
+        if (filters.CunyWide && !school.cunywide ) return false
+        return true
+      }).map((data, index) => (<SchoolInfo
         className = {hoveredMarkerName == data.schoolName ? "InfoSection-hover" : "InfoSection"}
         key={index}
        schoolName={data.schoolName}
