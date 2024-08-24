@@ -200,7 +200,7 @@ html {
   padding: 20px;
   border-radius: 10px;
   margin: 20px auto;
-  max-width: 600px;
+  max-width: 50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
@@ -213,6 +213,10 @@ html {
   max-width: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   text-align: left;
+ }
+
+ .purpose{
+  max-width: 80%;
 }
 
 .school-name {
@@ -269,6 +273,7 @@ html {
   flex: 1; /* Each box takes up an equal amount of space */
   background-color: lightblue;
   text-align: center;
+  height:100%;
   padding:0px 10px 0px 2px;
 }
 
@@ -286,3 +291,7 @@ html {
   }
  }
  
+ .sources {
+  text-align: center;
+ list-style-position: inside;
+ }
