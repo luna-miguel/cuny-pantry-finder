@@ -53,14 +53,15 @@ function NavBar({onFiltersChange, onPurposeChange}) {
             WalkIn: !checkedWalkIn
         });
         onFiltersChange(filters)
-    };
 
-    const Checkbox = ({label, value, onChange}) => {
-        return (
-            <label>
-                <input type="checkbox" checked={value} onChange={onChange}/> {label}
-            </label>
-        );
+    };
+  
+    const Checkbox = ({ label, value, onChange }) => {
+      return (
+        <label>
+          <input type="checkbox" checked={value} onChange={onChange} /> {label}
+        </label>
+      );
     };
 
     //   Cuny-wide , walk in
@@ -215,8 +216,9 @@ function MapComponent({onNearestSchoolsChange, onHoverMarkerChange, activeFilter
                 )}
             </div>
         </APIProvider>
+
     );
-}
+  }
 
 // } Web App Components
 function App() {
@@ -272,9 +274,11 @@ function App() {
                             </div>
                         </div>
 
+
                     </div>
                 )
                 : <div className="container"><Purpose/></div>}
+
         </div>
     );
 }

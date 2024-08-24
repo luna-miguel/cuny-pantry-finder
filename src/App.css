@@ -1,22 +1,25 @@
 html {
   scroll-behavior: smooth;
- }
+}
  
  
- .App {
+.App {
   text-align: center;
- }
- .App-logo {
+}
+ 
+.App-logo {
   height: 40vmin;
   pointer-events: none;
- }
- @media (prefers-reduced-motion: no-preference) {
+}
+
+@media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
- }
- /* dim image in app-header*/
- .App-header {
+}
+ 
+/* dim image in app-header*/
+.App-header {
   background-image: url("newBasket.jpg");
   background-size: cover; /*default for entire container*/
   background-position: center;
@@ -27,18 +30,17 @@ html {
   align-items: center;
   justify-content: center;
   color: white;
-  filter: brightness(82%);
- }
+  filter: brightness(87%);
+} 
  
- 
- @media (min-width: 960px) {
+@media (min-width: 50%) {
   .App-header, image-header {
     background-size: cover;
   }
- }
+}
  
  
- .image-header {
+.image-header {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -48,15 +50,13 @@ html {
   align-items: center;
   justify-content: center;
   color: white;
- }
- 
- 
- .App-link {
+}
+
+.App-link {
   color: 'black';
  }
  
- 
- .navBar {
+.navBar {
   display:flex;
   background-color: rgba(0, 0, 0, 0.5);
   align-items: center;
@@ -70,18 +70,17 @@ html {
   width: 75%;
   border-radius: 10px;
   margin-top: -10px;
- }
+}
  
- 
- /*Title on the left side of the Nav Bar*/
- .nav-text {
+/*Title on the left side of the Nav Bar*/
+.nav-text {
   font-size: 24px;
   font-weight: bold;
   color: white;
  }
  
  
- .navBar a {
+.navBar a {
   font-weight: bold;
   color: black;
   padding: 10px 20px;
@@ -91,42 +90,83 @@ html {
   text-decoration: none;
  }
  
- 
- .nav-icon {
+
+/* .filter-dropdown {
+  font-weight: bold;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+} */
+
+.nav-icon {
   width: 20px;
   height: 20px;
   margin-right: 8px;
   vertical-align: middle;
- }
+}
  
- 
- /*Nav Bar links horiontally aligned even when screen resized*/
- @media (max-width: 960px) {
+/*Nav Bar links horiontally aligned even when screen resized*/
+@media (max-width: 50%) {
   .navBar {
     width: 90%;
     flex-wrap: nowrap;
   }
- 
- 
   .navBar-links {
     gap: 10px;
   }
- 
- 
   .navBar a {
     padding: 8px 15px;
     font-size: 14px;
   }
- 
- 
   .nav-icon {
     width: 16px;
     height: 16px;
   }
- }
- 
- 
- .navBar-links {
+}
+
+.filter-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 40px; /* Adjust based on your nav height */
+}
+
+.dropdown-content label {
+  margin-bottom: 8px;
+  text-align: left;
+  font-size:16px;
+  color: black;
+}
+
+/* button effects */
+.filter-dropdown button {
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-size:16px;
+  font-weight: bold;
+  color: black;
+  padding: 10px 26px 8px 26px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+
+.navBar-links {
   display: flex;
   color: white;
   text-decoration: none;
@@ -135,32 +175,27 @@ html {
  }
  
  
- .navBar-link a:hover {
+.navBar-link a:hover {
   color: rgb(101, 109, 74);
- }
+}
  
- 
- .navBar-link a.active {
+.navBar-link a.active {
   color: black;
  }
  
- 
- /* center text in middle of background image */
- .middle-text{
+/* center text in middle of background image */
+.middle-text{
   display: flex;
   font-size: 25px;
   justify-content: center;
   height: 140vh;
-  padding-left: 1.7cm;
+  padding-left: 0.5cm;
   color: white;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
  
- 
- }
- 
- 
- /*blocks holding the school info to the right of the map*/
- .InfoSection {
+/*blocks holding the school info to the right of the map*/
+.InfoSection {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 10px;
@@ -168,8 +203,9 @@ html {
   max-width: 50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
- }
- .InfoSection-hover {
+}
+
+.InfoSection-hover {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 20px;
   border-radius: 10px;
@@ -178,78 +214,71 @@ html {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   text-align: left;
  }
+
  .purpose{
-  max-width: 600px;
- }
- 
- .school-name {
+  max-width: 80%;
+}
+
+.school-name {
   font-size: 30px;
   font-weight: bold;
   color: #333;
  }
  
- 
- .center-info {
+.center-info {
   margin-bottom: 16px;
  }
- 
- 
- .center-name {
+
+.center-name {
   font-size: 20px;
   margin: 10px 0;
   color: rgb(101, 109, 74);
  }
- 
- 
- .center-details {
+
+.center-details {
   font-size: 16px;
   margin: 5px 0 15px;
  }
  
- 
- .contact-info {
+.contact-info {
   font-size: 16px;
   margin: 5px 0;
  }
  
- 
- .more-info-link {
+.more-info-link {
   display: inline-block;
   font-size: 16px;
   color: rgb(101, 109, 74);
   text-decoration:none;
  }
+
  
- 
- .more-info-link:hover {
+.more-info-link:hover {
   text-decoration: underline;
- }
+}
  
- 
- /* Basic styling for the container and boxes */
+/* Basic styling for the container and boxes */
  .container {
   display: flex;
   flex-wrap: wrap; /* Allows the boxes to wrap */
   justify-content: fill;
  }
  
- 
- .school-info-section-box {
+.school-info-section-box {
   width: 100%;
   max-width: 800px;
- }
+}
  
- 
- .box {
+.box {
   flex: 1; /* Each box takes up an equal amount of space */
   background-color: lightblue;
   text-align: center;
   height:100%;
- }
- 
- 
+  padding:0px 10px 0px 2px;
+}
+
  /* Media query for smaller screens */
- @media (max-width: 788px) {
+ @media (max-width: 50%) {
   .container {
       flex-direction: column; /* Stacks the boxes on top of each other */
   }
