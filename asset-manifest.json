@@ -1,17 +1,19 @@
 {
   "files": {
-    "main.css": "/cuny-pantry-finder/static/css/main.ff0f7586.css",
-    "main.js": "/cuny-pantry-finder/static/js/main.1cd0e991.js",
+    "main.css": "/cuny-pantry-finder/static/css/main.5c8f0fb9.css",
+    "main.js": "/cuny-pantry-finder/static/js/main.3784a80f.js",
     "static/js/453.ed3810f9.chunk.js": "/cuny-pantry-finder/static/js/453.ed3810f9.chunk.js",
     "static/media/newBasket.jpg": "/cuny-pantry-finder/static/media/newBasket.26e0b32aa53ae3be6939.jpg",
+    "static/media/purposeSurvey.png": "/cuny-pantry-finder/static/media/purposeSurvey.7dbe2b19dfa1ad99a217.png",
+    "static/media/purposeCovid.png": "/cuny-pantry-finder/static/media/purposeCovid.51c4ce7535a06309e64c.png",
     "static/media/purpose.webp": "/cuny-pantry-finder/static/media/purpose.2ba382f9622c729a31a2.webp",
     "index.html": "/cuny-pantry-finder/index.html",
-    "main.ff0f7586.css.map": "/cuny-pantry-finder/static/css/main.ff0f7586.css.map",
-    "main.1cd0e991.js.map": "/cuny-pantry-finder/static/js/main.1cd0e991.js.map",
+    "main.5c8f0fb9.css.map": "/cuny-pantry-finder/static/css/main.5c8f0fb9.css.map",
+    "main.3784a80f.js.map": "/cuny-pantry-finder/static/js/main.3784a80f.js.map",
     "453.ed3810f9.chunk.js.map": "/cuny-pantry-finder/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ff0f7586.css",
-    "static/js/main.1cd0e991.js"
+    "static/css/main.5c8f0fb9.css",
+    "static/js/main.3784a80f.js"
   ]
 }
