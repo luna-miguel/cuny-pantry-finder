@@ -97,7 +97,7 @@ function NavBar({ onFiltersChange }) {
               <div className="dropdown-content">
                 <Checkbox label="Cuny-Wide" value={checkedCunyWide} onChange={handleChangeCunyWide} />
                 <Checkbox label="Borough" value={checkedBorough} onChange={handleChangeBorough} />
-                <Checkbox label="WalkIn" value={checkedWalkIn} onChange={handleChangeWalkIn} />
+                <Checkbox label="Walk-In" value={checkedWalkIn} onChange={handleChangeWalkIn} />
               </div>
             )}
           </div>
@@ -171,7 +171,7 @@ function MapComponent({ onNearestSchoolsChange, onHoverMarkerChange, filters }) 
     // Show the map once the user's position has been retrieved and API loaded
     return (
       <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
-        <div style={{ height: "100vh", width: "100%" }}>
+        <div className="box" style={{ height: "100vh", width: "100%" }}>
           {position && (
             <Map defaultZoom={14} defaultCenter={position}>
               <Marker position={position} onClick={() => setOpen(true)} />
@@ -248,17 +248,17 @@ function App() {
 
                 <div className="School-info-section box">
                     {/* TODO: Filter  */}
+                    {renderSchoolInfo(nearestSchools.slice(resultsPageNum * resultsPerPage, resultsPageNum * resultsPerPage + resultsPerPage), hoveredMarkerIndex, filters)}
                     <div className="pageArrows">
                         <button onClick={() => setresultsPageNum(Math.max(resultsPageNum - 1, 0))}>
                             <div>&lt;</div>
                         </button>
-                        {resultsPageNum}
+                        {resultsPageNum + 1}
                         <button
                             onClick={() => setresultsPageNum(Math.min(resultsPageNum + 1, maxPages - 1))}>
                             <div>&gt;</div>
                         </button>
                     </div>
-                    {renderSchoolInfo(nearestSchools.slice(resultsPageNum * resultsPerPage, resultsPageNum * resultsPerPage + resultsPerPage), hoveredMarkerIndex, filters)}
                 </div>
             </div>
         </div>
